@@ -1,0 +1,26 @@
+{
+  "name": "taptaptap",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "check": "tsc --noEmit",
+    "build": "pnpm check && vite build && node scripts/copy-font-license.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "format": "prettier --write src tests index.html README.md CONTRIBUTING.md"
+  },
+  "dependencies": {
+    "@fontsource-variable/fredoka": "^5.2.0",
+    "matter-js": "^0.20.0",
+    "pixi.js": "^8.14.0"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.20.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6"
+  },
+  "packageManager": "pnpm@11.10.0"
+}
