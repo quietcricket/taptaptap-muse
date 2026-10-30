@@ -6,3 +6,8 @@ dist
 .env.*
 coverage
 .DS_Store
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+data

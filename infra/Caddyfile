@@ -1,0 +1,13 @@
+taptaptap.birme.net {
+	tls {
+		issuer acme {
+			disable_tlsalpn_challenge
+		}
+	}
+	encode zstd gzip
+	reverse_proxy app:8080 {
+		transport http {
+			response_header_timeout 260s
+		}
+	}
+}

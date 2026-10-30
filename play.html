@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your mode · taptaptap</title>
+  </head>
+  <body>
+    <a id="edit-mode" href="/studio.html">Edit mode ↗</a>
+    <p id="player-status" role="status">Loading your mode…</p>
+    <iframe
+      id="mode-player"
+      title="Your typing mode"
+      sandbox="allow-scripts"
+      referrerpolicy="no-referrer"
+      hidden
+    ></iframe>
+    <script type="module" src="/src/player.ts"></script>
+  </body>
+</html>

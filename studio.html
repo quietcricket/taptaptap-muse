@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Mode studio · taptaptap</title>
+  </head>
+  <body>
+    <header class="studio-header">
+      <a class="wordmark" href="/"
+        >tap<span>tap</span>tap<span class="dot">.</span></a
+      >
+      <a href="/">Play the original worlds ↗</a>
+    </header>
+    <main>
+      <section class="introduction">
+        <p class="eyebrow">MODE STUDIO</p>
+        <h1>Your keys.<br />Your little world<span class="dot">.</span></h1>
+        <p>
+          Describe a typing world and shape it with Meta Muse. Your modes and
+          conversations stay in your account.
+        </p>
+      </section>
+      <p id="notice" role="status" aria-live="polite"></p>
+      <section id="sign-in" class="card">
+        <h2>A place for your ideas</h2>
+        <p>
+          Sign in or create an account with your email. We’ll send you a link,
+          so there’s no password to remember.
+        </p>
+        <form id="login-form">
+          <label for="email">Email address</label>
+          <div class="input-row">
+            <input
+              id="email"
+              type="email"
+              autocomplete="email"
+              maxlength="254"
+              required
+              placeholder="you@example.com"
+            />
+            <button type="submit">Send sign-in link</button>
+          </div>
+        </form>
+        <button id="verify" hidden>Confirm sign-in</button>
+      </section>
+      <section id="workspace" hidden>
+        <div class="account-row">
+          <p id="account-email"></p>
+          <button id="logout" class="quiet">Sign out</button>
+        </div>
+        <div class="workspace-grid">
+          <aside class="card library">
+            <h2>Your modes</h2>
+            <form id="project-form">
+              <label for="project-name">Name a new world</label>
+              <input
+                id="project-name"
+                maxlength="100"
+                required
+                placeholder="Letters in a snow globe"
+              />
+              <button type="submit">Create a mode</button>
+            </form>
+            <nav id="projects" aria-label="Your custom modes"></nav>
+          </aside>
+          <section class="card editor">
+            <p id="empty-state">
+              Start a new world, or open one of your saved modes.
+            </p>
+            <div id="project-editor" hidden>
+              <h2 id="project-title"></h2>
+              <p id="agent-status"></p>
+              <p class="model-disclosure">
+                Powered by Muse Wonder 1.0. Your prompts and mode code are sent
+                to Meta to create and update your mode.
+              </p>
+              <div
+                id="messages"
+                class="messages"
+                role="log"
+                aria-label="Conversation with Meta Muse"
+              ></div>
+              <form id="chat-form">
+                <label for="prompt">What should happen when you type?</label>
+                <textarea
+                  id="prompt"
+                  maxlength="4000"
+                  rows="3"
+                  required
+                  placeholder="Make letters fall like snowflakes and pile up at the bottom…"
+                ></textarea>
+                <button id="send" type="submit">Send to Meta Muse</button>
+              </form>
+              <section
+                id="generation-progress"
+                class="generation-progress"
+                aria-label="Meta Muse activity"
+                hidden
+              >
+                <div class="generation-heading">
+                  <strong id="generation-status" role="status"
+                    >Calling Meta Muse…</strong
+                  >
+                  <span id="generation-elapsed"></span>
+                </div>
+                <ol id="generation-events"></ol>
+              </section>
+              <section class="preview-section" aria-label="Mode preview">
+                <div class="preview-heading">
+                  <h3>Play your world</h3>
+                  <a id="play-mode" hidden>Play full page ↗</a>
+                  <button id="restart" class="quiet">Restart preview</button>
+                </div>
+                <p id="preview-hint">
+                  Your preview will appear after Meta Muse creates your mode.
+                  Click inside it to type.
+                </p>
+                <iframe
+                  id="preview"
+                  title="Your custom typing mode"
+                  sandbox="allow-scripts"
+                  referrerpolicy="no-referrer"
+                  hidden
+                ></iframe>
+              </section>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/studio.ts"></script>
+  </body>
+</html>

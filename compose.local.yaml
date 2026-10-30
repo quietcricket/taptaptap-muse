@@ -1,0 +1,52 @@
+name: taptaptap-local
+services:
+  app:
+    environment:
+      APP_URL: http://localhost:8080
+      EMAIL_DELIVERY: console
+      DYNAMODB_TABLE: taptaptap-local
+      DYNAMODB_ENDPOINT_URL: http://dynamodb:8000
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+      AGENT_DEBUG_DIR: /debug
+      AGENT_CA_BUNDLE: /run/local-ca.pem
+      SSL_CERT_FILE: /run/local-ca.pem
+      NODE_EXTRA_CA_CERTS: /run/local-ca.pem
+      AGENT_TIMEOUT_SECONDS: '210'
+    volumes:
+      - ./src:/app/src:ro
+      - ./scripts:/app/scripts:ro
+      - ./infra/opencode.json:/app/infra/opencode.json:ro
+      - ./infra/opencode.json:/etc/opencode/opencode.json:ro
+      - ./dist:/app/dist:ro
+      - ./data/local-debug:/debug
+      - ./.env.local-ca.pem:/run/local-ca.pem:ro
+    depends_on:
+      dynamodb:
+        condition: service_started
+      database-setup:
+        condition: service_completed_successfully
+  dynamodb:
+    image: amazon/dynamodb-local@sha256:6ada631ec7aa5fc83446855eb17233e3dad184fec47477e8140c6c569cfe0c86
+    user: '0:0'
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /data
+    volumes:
+      - local-dynamodb:/data
+  database-setup:
+    image: taptaptap:local
+    entrypoint: /app/.venv/bin/python
+    command: /app/scripts/setup_local_dynamodb.py
+    environment:
+      DYNAMODB_TABLE: taptaptap-local
+      AWS_DEFAULT_REGION: ap-southeast-1
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    volumes:
+      - ./scripts:/app/scripts:ro
+    depends_on:
+      - dynamodb
+    restart: 'no'
+    healthcheck:
+      disable: true
+volumes:
+  local-dynamodb:

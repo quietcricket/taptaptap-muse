@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "check": "tsc --noEmit",
-    "build": "pnpm check && vite build && node scripts/copy-font-license.mjs",
+    "build": "pnpm check && vite build && node scripts/copy-font-license.mjs && node scripts/build-mode-runtime.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
-    "format": "prettier --write src tests index.html README.md CONTRIBUTING.md"
+    "format": "prettier --write src tests index.html studio.html vite.config.ts compose.yaml README.md CONTRIBUTING.md"
   },
   "dependencies": {
     "@fontsource-variable/fredoka": "^5.2.0",

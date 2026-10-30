@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    image: taptaptap:local
+    ports:
+      - '127.0.0.1:8080:8080'
+    environment:
+      APP_URL: ${APP_URL:-http://localhost:8080}
+      EMAIL_DELIVERY: ${EMAIL_DELIVERY:-console}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      AWS_REGION: ${AWS_REGION:-ap-southeast-1}
+      SES_REGION: ${SES_REGION:-}
+      DYNAMODB_TABLE: ${DYNAMODB_TABLE:-taptaptap}
+      DYNAMODB_ENDPOINT_URL: ${DYNAMODB_ENDPOINT_URL:-}
+      META_API_KEY: ${META_API_KEY:-}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: unless-stopped
+    init: true
+    read_only: true
+    mem_limit: 1g
+    cpus: 2
+    pids_limit: 256
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
